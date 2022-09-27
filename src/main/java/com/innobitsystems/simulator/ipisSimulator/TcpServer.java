@@ -36,6 +36,7 @@ public class TcpServer {
 		}
 		sc.close();
 
+
 //			if(dataRecived.equals("exit"))
 //				break;
 //		}

@@ -1,6 +1,7 @@
 package com.innobitsystems.simulator.ipisSimulator;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 public class test5 {
@@ -20,9 +21,14 @@ public class test5 {
 //        
     	try {
             Process ds=Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"dir && cd \"C:\\\\Program Files\\\\PostgreSQL\\\\14\\\"&&rmdir data /s /q \"");
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_basebackup -h 192.168.2.3 -p 5432 -U postgres  -Fp -Xs -R -D \"C:\\Program Files\\PostgreSQL\\14\\data1\"");
-          Thread.sleep(5000);
-            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"dir && cd \"C:\\\\Program Files\\\\PostgreSQL\\\\14\\\"&& ren data1 data \"");
+           File f = new File("C:\\Program Files\\PostgreSQL\\14\\data");
+           long count = f.length();
+           System.out.println("length "+count); 
+      
+//           if(count==0)
+            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_basebackup -h 192.168.2.2 -p 5432 -U postgres  -Fp -Xs -R -D \"C:\\Program Files\\PostgreSQL\\14\\data\"");         
+//            Thread.sleep(5000);
+//            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"dir && cd \"C:\\\\Program Files\\\\PostgreSQL\\\\14\\\"&& ren data1 data \"");
 
     	}
     	catch(Exception e) {

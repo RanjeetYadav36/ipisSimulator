@@ -55,7 +55,7 @@ public class ReceivingHeartBeats extends TimerTask {
 		System.out.println("switch over become master");
 		
                
-        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \\\"C:\\\\Program Files\\\\PostgreSQL\\\\14\\\\data\\\"");         
+        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \"C:\\Program Files\\PostgreSQL\\14\\data\"");         
 
 
 	}
@@ -78,7 +78,7 @@ public class ReceivingHeartBeats extends TimerTask {
 			Future<Object> future = executor.submit(task);
 
 			try {
-
+System.out.println("timer valu="+ti.timer_value);
 				Object result = future.get(ti.timer_value, TimeUnit.SECONDS);
 
 			} catch (TimeoutException ex) {
@@ -127,7 +127,7 @@ public class ReceivingHeartBeats extends TimerTask {
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
 				ti.changeMsg("SendingMsg", "s");
-	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
+//	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
 
 				break;
 

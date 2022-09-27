@@ -82,7 +82,10 @@ System.out.println("timer valu="+ti.timer_value);
 				Object result = future.get(ti.timer_value, TimeUnit.SECONDS);
 
 			} catch (TimeoutException ex) {
+				if(!ti.SendingMsg.equals("m")) {
+					System.out.println("switchover--------------------------------"+ti.SendingMsg);
 				switchover();
+				}
 
 			} catch (InterruptedException e) {
 				throw new Exception();

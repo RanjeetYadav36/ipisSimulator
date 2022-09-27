@@ -46,7 +46,7 @@ public class ReceivingHeartBeats extends TimerTask {
 	}
 
 	public void switchover() throws Exception {
-		ti.changeMsg("SendingMsg", "m");
+		ti.changeMsg("SendingMsg", "t");
 
 		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
@@ -140,7 +140,15 @@ System.out.println("timer valu="+ti.timer_value);
 				ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
 
 				break;
+				
+			case 't':
+				ti.changeMsg("SendingMsg","s");
+				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
+	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
 
+				
+				break;
+			
 			default: {
 				System.out.println("141.........");
 				if (ti.SendingMsg.equals("u")) {

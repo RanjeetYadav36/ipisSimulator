@@ -144,7 +144,7 @@ System.out.println("timer valu="+ti.timer_value);
 			case 't':
 				ti.changeMsg("SendingMsg","s");
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
-	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
+	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");         
 
 				
 				break;

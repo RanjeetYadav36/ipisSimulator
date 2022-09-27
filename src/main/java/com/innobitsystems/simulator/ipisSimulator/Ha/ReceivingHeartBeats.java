@@ -1,9 +1,5 @@
 package com.innobitsystems.simulator.ipisSimulator.Ha;
 
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
@@ -57,6 +53,10 @@ public class ReceivingHeartBeats extends TimerTask {
 		ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
 
 		System.out.println("switch over become master");
+		
+               
+        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \\\"C:\\\\Program Files\\\\PostgreSQL\\\\14\\\\data\\\"");         
+
 
 	}
 
@@ -85,55 +85,23 @@ public class ReceivingHeartBeats extends TimerTask {
 				switchover();
 
 			} catch (InterruptedException e) {
-				throw new Exception( e.toString());
+				throw new Exception();
 			} catch (ExecutionException e) {
-				throw new Exception(e.toString());
+				throw new Exception();
 
 			} finally {
 				future.cancel(true);
 			}
 
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+			throw new Exception();
 		}
 	}
 
 	@Override
 	public void run() {
 		try {
-			
 			timeout();
-//			String[] command = { "cmd", };
-//			Process process;
-//			
-//				process = Runtime.getRuntime().exec(command);
-//				new Thread(new SyncPipe(process.getErrorStream(), System.err)).start();
-//				new Thread(new SyncPipe(process.getInputStream(), System.out)).start();
-//				PrintWriter stdin = new PrintWriter(process.getOutputStream());
-//				stdin.println("mkdir C:\\Users\\innobit\\Documents\\backup\\newfolder");
-			
-			Process process = Runtime.getRuntime().exec("pg_basebackup -h 192.168.2.3 -p 5432 -U postgres -D \"C:\\Program Files\\PostgreSQL\\14\\data\" -Fp -Xs -R");
-			 
-		    BufferedReader reader = new BufferedReader(
-		            new InputStreamReader(process.getInputStream()));
-		    String line;
-		    while ((line = reader.readLine()) != null) {
-		        System.out.println(line);
-		    }
-		 
-		    reader.close();
-		    ProcessBuilder builder = new ProcessBuilder(
-		            "cmd.exe", "/c", "cd \"C:\\Program Files\\PostgreSQL\\14\"  &&rmdir /s /q E:\\data ");
-		        builder.redirectErrorStream(true);
-		        Process p = builder.start();
-		        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		        String line1;
-		        while (true) {
-		            line1 = r.readLine();
-		            if (line1 == null) { break; }
-		            System.out.println(line1);
-		        }
-//		    }
 
 			String msg = receiveHeartBeat(ti.receiver_port);
 
@@ -155,17 +123,11 @@ public class ReceivingHeartBeats extends TimerTask {
 
 				break;
 			case 'm':
-				System.out.println("inside case m");
+
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
 				ti.changeMsg("SendingMsg", "s");
-//				stdin.println("net stop postgresql-x64-14");
-//				stdin.println("rmdir /s /q C:\\\\Program Files\\\\PostgreSQL\\\\14\\\\data");
-//				stdin.println("mkdir C:\\\\\\\\Program Files\\\\\\\\PostgreSQL\\\\\\\\14\\\\\\\\data");
-//				stdin.println("netsh interface pg_basebackup -h 192.168.2.3 -p 5432 -U postgres -D \"C:\\Program Files\\PostgreSQL\\14\\data\" -Fp -Xs -R");
-//				stdin.println("net start postgresql-x64-14");
-
-
+	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
 
 				break;
 
@@ -176,15 +138,6 @@ public class ReceivingHeartBeats extends TimerTask {
 				ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
 				ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
-		
-
-
-//				stdin.println("netsh interface ipv4 set dns " + adapter_name + " static " + dns1 + " primary");
-//
-//				stdin.println("netsh interface ipv4 add dns " + adapter_name + " " + dns2 + " index=2 ");
-
-//				stdin.close();
-
 
 				break;
 

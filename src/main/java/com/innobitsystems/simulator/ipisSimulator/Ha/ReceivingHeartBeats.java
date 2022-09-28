@@ -18,6 +18,7 @@ public class ReceivingHeartBeats extends TimerTask {
 	Ha_Initialization ti = new Ha_Initialization();
 	public String msg="";
 	public int jCount=0;
+	public boolean flag=false;
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
@@ -48,7 +49,7 @@ public class ReceivingHeartBeats extends TimerTask {
 
 	public void switchover() throws Exception {
 		ti.changeMsg("SendingMsg", "t");
-
+		flag=true;
 		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
 		ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
@@ -69,9 +70,13 @@ public class ReceivingHeartBeats extends TimerTask {
 			Callable<Object> task = new Callable<Object>() {
 				public Object call() throws Exception {
 					try {
+						System.out.println(ti.SendingMsg+")))))))))))))))))))))))))");
+
 						msg = receiveHeartBeat(ti.receiver_port);
 						return msg;
 					} catch (Exception e) {
+						System.out.println(ti.SendingMsg+")))))))))))))))))))))))))");
+						// ti.changeMsg("SendingMsg", "s");
 						return e;
 					}
 				}
@@ -166,7 +171,7 @@ System.out.println("timer valu="+ti.timer_value);
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
 			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(ti.SendingMsg.equals("s")){
+				if(!flag){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

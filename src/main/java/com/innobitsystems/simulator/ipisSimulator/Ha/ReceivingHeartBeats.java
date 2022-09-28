@@ -48,18 +48,18 @@ public class ReceivingHeartBeats extends TimerTask {
 	}
 
 	public void switchover() throws Exception {
-		ti.changeMsg("SendingMsg", "t");
-		flag=true;
-		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
-
-		ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
-
-		System.out.println("switch over become master");
-		
-               
-        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \"C:\\Program Files\\PostgreSQL\\14\\data\"");         
-
-
+		if(ti.SendingMsg.equals("s")){
+			ti.changeMsg("SendingMsg", "t");
+			flag=true;
+			ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
+	
+			ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
+	
+			System.out.println("switch over become master");
+			
+				   
+			Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \"C:\\Program Files\\PostgreSQL\\14\\data\"");         
+		}
 	}
 
 	public void timeout() throws Exception {

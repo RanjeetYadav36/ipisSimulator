@@ -17,6 +17,7 @@ public class ReceivingHeartBeats extends TimerTask {
 
 	Ha_Initialization ti = new Ha_Initialization();
 	public String msg="";
+	public int jCount=0;
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
@@ -162,10 +163,11 @@ System.out.println("timer valu="+ti.timer_value);
 				break;
 
 			case 'j':
+			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
 			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(ti.SendingMsg == "s"){
-			System.out.println(" inside if**************")
+				if(jCount==1){
+			System.out.println(" inside if**************");
 					switchover();	
 				}
 				break;

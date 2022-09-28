@@ -112,7 +112,7 @@ System.out.println("timer valu="+ti.timer_value);
 			// String msg = receiveHeartBeat(ti.receiver_port);
 
 			char c = msg.charAt(0);
-			System.out.println(c + "   106");
+			System.out.println(msg + "   106");
 			switch (c) {
 			case 'u':
 			System.out.println("222222222222222222222");
@@ -162,8 +162,12 @@ System.out.println("timer valu="+ti.timer_value);
 				break;
 
 			case 'j':
-				ti.changeMsg("SendingMsg","m");
-				switchover();	
+			System.out.println("++++++++++++++++++++++++++++++++++");
+			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
+				if(ti.SendingMsg == "s"){
+			System.out.println(" inside if**************")
+					switchover();	
+				}
 				break;
 			
 			default: {

@@ -115,22 +115,22 @@ System.out.println("timer valu="+ti.timer_value);
 			char c = msg.charAt(0);
 			System.out.println(msg + "   106");
 			switch (c) {
-			case 'u':
-			System.out.println("222222222222222222222");
+			// case 'u':
+			// System.out.println("222222222222222222222");
 
-				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
-				if (ti.SendingMsg.equals("u") && ti.SendingMsg.equals("m")) {
-					ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
+			// 	ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
+			// 	if (ti.SendingMsg.equals("u") && ti.SendingMsg.equals("m")) {
+			// 		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
-					ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
+			// 		ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
 
-					ti.changeMsg("SendingMsg", "m");
-				} else if (ti.default_pc.equals("s") && ti.SendingMsg.equals("u")) {
-					ti.changeMsg("SendingMsg", "s");
+			// 		// ti.changeMsg("SendingMsg", "m");
+			// 	} else if (ti.default_pc.equals("s") && ti.SendingMsg.equals("u")) {
+			// 		// ti.changeMsg("SendingMsg", "s");
 
-				}
+			// 	}
 
-				break;
+			// 	break;
 			case 'm':
 			System.out.println(" 33333333333333333333333333");
 
@@ -166,7 +166,7 @@ System.out.println("timer valu="+ti.timer_value);
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
 			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(jCount==1){
+				if(ti.SendingMsg.equals("s")){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

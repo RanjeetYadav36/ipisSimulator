@@ -104,6 +104,8 @@ System.out.println("timer valu="+ti.timer_value);
 	@Override
 	public void run() {
 		try {
+			System.out.println(" 1111111111111111111111 11111");
+
 			timeout();
 
 			String msg = receiveHeartBeat(ti.receiver_port);
@@ -112,6 +114,8 @@ System.out.println("timer valu="+ti.timer_value);
 			System.out.println(c + "   106");
 			switch (c) {
 			case 'u':
+			System.out.println("222222222222222222222");
+
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 				if (ti.SendingMsg.equals("u") && ti.SendingMsg.equals("m")) {
 					ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
@@ -126,6 +130,7 @@ System.out.println("timer valu="+ti.timer_value);
 
 				break;
 			case 'm':
+			System.out.println(" 33333333333333333333333333");
 
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
@@ -135,6 +140,7 @@ System.out.println("timer valu="+ti.timer_value);
 				break;
 
 			case 's':
+			System.out.println(" 4444444444444444444444444411");
 
 				ti.changeMsg("SendingMsg", "m");
 
@@ -145,6 +151,8 @@ System.out.println("timer valu="+ti.timer_value);
 				break;
 				
 			case 't':
+			System.out.println(" 5555555555555555555555555");
+
 				ti.changeMsg("SendingMsg","s");
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");         
@@ -153,6 +161,9 @@ System.out.println("timer valu="+ti.timer_value);
 				break;
 			
 			default: {
+			System.out.println(" 66666666666666666666666666666");
+			System.out.println(ti.SendingMsg + "SendingMsg");
+
 				System.out.println("141.........");
 				if (ti.SendingMsg.equals("u")) {
 					System.out.println("143.........");

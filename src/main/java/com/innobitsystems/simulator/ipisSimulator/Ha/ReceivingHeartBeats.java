@@ -48,6 +48,7 @@ public class ReceivingHeartBeats extends TimerTask {
 
 	public void switchover() throws Exception {
 		ti.changeMsg("SendingMsg", "t");
+		ti.changeMsg("CheckSystem", "t");
 
 		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
@@ -136,7 +137,8 @@ System.out.println("timer valu="+ti.timer_value);
 
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
-				ti.changeMsg("SendingMsg", "s");
+				ti.changeMsg("SendingMsg", "s");  
+				ti.changeMsg("CheckSystem", "s");  
 //	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
 
 				break;
@@ -145,6 +147,7 @@ System.out.println("timer valu="+ti.timer_value);
 			System.out.println(" 4444444444444444444444444411");
 
 				ti.changeMsg("SendingMsg", "m");
+				ti.changeMsg("CheckSystem", "m");
 
 				ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
@@ -165,8 +168,8 @@ System.out.println("timer valu="+ti.timer_value);
 			case 'j':
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
-			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(jCount==1){
+			System.out.println(ti.CheckSystem+" &&&&&&&&&&&&&&&&&&&&&&&&");
+				if(ti.CheckSystem.equals("s")){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

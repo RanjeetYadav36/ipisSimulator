@@ -14,6 +14,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 public class Ha_Initialization {
 	String default_pc;
 	String SendingMsg;
+	String CheckSystem;
 
 	int sender_port;
 	int receiver_port;
@@ -51,6 +52,8 @@ public class Ha_Initialization {
 			prop.load(read);
 
 			SendingMsg = prop.getProperty("SendingMsg");
+
+			CheckSystem = prop.getProperty("CheckSystem");
 
 			default_pc = prop.getProperty("default_pc");
 

@@ -160,6 +160,11 @@ System.out.println("timer valu="+ti.timer_value);
 
 				
 				break;
+
+			case 'j':
+				ti.changeMsg("SendingMsg","m");
+				switchover();	
+				break;
 			
 			default: {
 			System.out.println(" 66666666666666666666666666666");

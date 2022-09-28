@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 public class ReceivingHeartBeats extends TimerTask {
 
 	Ha_Initialization ti = new Ha_Initialization();
-
+	public String msg="";
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
@@ -68,7 +68,8 @@ public class ReceivingHeartBeats extends TimerTask {
 			Callable<Object> task = new Callable<Object>() {
 				public Object call() throws Exception {
 					try {
-						return receiveHeartBeat(ti.receiver_port);
+						msg = receiveHeartBeat(ti.receiver_port);
+						return msg;
 					} catch (Exception e) {
 						return e;
 					}
@@ -108,7 +109,7 @@ System.out.println("timer valu="+ti.timer_value);
 
 			timeout();
 
-			String msg = receiveHeartBeat(ti.receiver_port);
+			// String msg = receiveHeartBeat(ti.receiver_port);
 
 			char c = msg.charAt(0);
 			System.out.println(c + "   106");

@@ -110,9 +110,11 @@ System.out.println("timer valu="+ti.timer_value);
 
 			System.out.println(" 1111111111111111111111 11111");
 			
-			Integer test=rewindOutput.waitFor();
+			if(rewindOutput != null){
+				Integer test=rewindOutput.waitFor();
+				System.out.println(test+"rewind output***************************");
+			}
 				
-			System.out.println(test+"rewind output***************************");
 			timeout();
 
 

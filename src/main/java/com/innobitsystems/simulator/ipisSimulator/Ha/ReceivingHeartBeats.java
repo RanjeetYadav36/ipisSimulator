@@ -171,7 +171,7 @@ System.out.println("timer valu="+ti.timer_value);
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
 			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(!flag){
+				if(ti.SendingMsg=="s"){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

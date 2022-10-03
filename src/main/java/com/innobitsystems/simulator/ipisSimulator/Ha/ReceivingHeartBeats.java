@@ -11,7 +11,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.net.InetAddress;
 
 
 public class ReceivingHeartBeats extends TimerTask {
@@ -23,7 +22,6 @@ public class ReceivingHeartBeats extends TimerTask {
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
-			System.out.println(sendMsg+"8798======================");
 			DatagramSocket serverSocket = new DatagramSocket(receiverPort);
 
 			byte[] receivingDataBuffer = new byte[1024];
@@ -48,22 +46,6 @@ public class ReceivingHeartBeats extends TimerTask {
 		}
 	}
 
-	// public void sendHeartBeat(String msg, String destinationIp, int sendingPort) throws Exception
-	// {
-	// 	DatagramSocket ds = new DatagramSocket();
-		
-	// 	byte[] data = msg.getBytes();
-		
-	// 	InetAddress i = InetAddress.getByName(destinationIp);
-
-	// 	DatagramPacket DpSend = new DatagramPacket(data, data.length, i, sendingPort);
-
-	// 	ds.send(DpSend);
-		
-	// 	System.out.println(msg + "  send to other machine");
-
-	// }
-
 	public void switchover() throws Exception {
 		ti.changeMsg("SendingMsg", "t");
 
@@ -87,13 +69,9 @@ public class ReceivingHeartBeats extends TimerTask {
 			Callable<Object> task = new Callable<Object>() {
 				public Object call() throws Exception {
 					try {
-						System.out.println(sendMsg+")))))))))))))))))))))))))");
-
 						msg = receiveHeartBeat(ti.receiver_port);
 						return msg;
 					} catch (Exception e) {
-						System.out.println(sendMsg+")))))))))))))))))))))))))");
-						// ti.changeMsg("SendingMsg", "s");
 						return e;
 					}
 				}
@@ -107,7 +85,6 @@ System.out.println("timer valu="+ti.timer_value);
 
 			} catch (TimeoutException ex) {
 				if(!ti.SendingMsg.equals("m")) {
-					System.out.println("switchover--------------------------------"+ti.SendingMsg);
 				switchover();
 				}
 
@@ -129,41 +106,21 @@ System.out.println("timer valu="+ti.timer_value);
 	public void run() {
 		try {
 			Ha_Initialization ts = new Ha_Initialization();
-			// sendMsg=ts.SendingMsg;
-			// sendHeartBeat(ts.SendingMsg, ts.destination_ip, ts.sender_port);
 
 			System.out.println(" 1111111111111111111111 11111");
 
 			timeout();
 
-			// String msg = receiveHeartBeat(ti.receiver_port);
 
 			char c = msg.charAt(0);
 			System.out.println(msg + "   106");
 			switch (c) {
-			// case 'u':
-			// System.out.println("222222222222222222222");
-
-			// 	ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
-			// 	if (ti.SendingMsg.equals("u") && ti.SendingMsg.equals("m")) {
-			// 		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
-
-			// 		ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
-
-			// 		// ti.changeMsg("SendingMsg", "m");
-			// 	} else if (ti.default_pc.equals("s") && ti.SendingMsg.equals("u")) {
-			// 		// ti.changeMsg("SendingMsg", "s");
-
-			// 	}
-
-			// 	break;
 			case 'm':
 			System.out.println(" 33333333333333333333333333");
 
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
-				ti.changeMsg("SendingMsg", "s");
-//	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" -R -P");         
+				ti.changeMsg("SendingMsg", "s");     
 
 				break;
 
@@ -182,36 +139,32 @@ System.out.println("timer valu="+ti.timer_value);
 			System.out.println(" 5555555555555555555555555");
 
 				ti.changeMsg("SendingMsg","s");
+
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
+
 	            Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");         
 
-				
 				break;
 
 			case 'j':
-			jCount=jCount+1;
-			System.out.println("++++++++++++++++++++++++++++++++++");
-			System.out.println(sendMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
+
 				if(ts.SendingMsg.equals("s")){
-			System.out.println(" inside if**************");
 					switchover();	
 				}
 				break;
 			
 			default: {
-			System.out.println(" 66666666666666666666666666666");
-			System.out.println(ti.SendingMsg + "SendingMsg");
 
-				System.out.println("141.........");
 				if (ti.SendingMsg.equals("u")) {
-					System.out.println("143.........");
+
 					ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
+
 				} else if (ti.SendingMsg.equals("m")) {
-					System.out.println("146.........");
+
 					ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
 
 				} else if (ti.SendingMsg.equals("s")) {
-					System.out.println("150.........");
+					
 					ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 				}
 				break;

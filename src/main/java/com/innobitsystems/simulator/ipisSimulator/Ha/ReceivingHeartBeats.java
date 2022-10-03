@@ -18,7 +18,6 @@ public class ReceivingHeartBeats extends TimerTask {
 	Ha_Initialization ti = new Ha_Initialization();
 	public String msg="";
 	public int jCount=0;
-	public boolean flag=false;
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
@@ -48,18 +47,18 @@ public class ReceivingHeartBeats extends TimerTask {
 	}
 
 	public void switchover() throws Exception {
-		// if(ti.SendingMsg.equals("s")){
-			ti.changeMsg("SendingMsg", "t");
-			// flag=true;
-			ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
-	
-			ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
-	
-			System.out.println("switch over become master");
-			
-				   
-			Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \"C:\\Program Files\\PostgreSQL\\14\\data\"");         
-		// }
+		ti.changeMsg("SendingMsg", "t");
+
+		ti.configureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway, ti.dns1, ti.dns2);
+
+		ti.portForwarding(ti.listen_address, ti.listen_port, ti.connect_address, ti.connect_port);
+
+		System.out.println("switch over become master");
+		
+               
+        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_ctl promote -D \"C:\\Program Files\\PostgreSQL\\14\\data\"");         
+
+
 	}
 
 	public void timeout() throws Exception {
@@ -171,7 +170,7 @@ System.out.println("timer valu="+ti.timer_value);
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
 			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(ti.SendingMsg == "m"){
+				if(ti.SendingMsg.equals("s")){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

@@ -48,21 +48,21 @@ public class ReceivingHeartBeats extends TimerTask {
 		}
 	}
 
-	public void sendHeartBeat(String msg, String destinationIp, int sendingPort) throws Exception
-	{
-		DatagramSocket ds = new DatagramSocket();
+	// public void sendHeartBeat(String msg, String destinationIp, int sendingPort) throws Exception
+	// {
+	// 	DatagramSocket ds = new DatagramSocket();
 		
-		byte[] data = msg.getBytes();
+	// 	byte[] data = msg.getBytes();
 		
-		InetAddress i = InetAddress.getByName(destinationIp);
+	// 	InetAddress i = InetAddress.getByName(destinationIp);
 
-		DatagramPacket DpSend = new DatagramPacket(data, data.length, i, sendingPort);
+	// 	DatagramPacket DpSend = new DatagramPacket(data, data.length, i, sendingPort);
 
-		ds.send(DpSend);
+	// 	ds.send(DpSend);
 		
-		System.out.println(msg + "  send to other machine");
+	// 	System.out.println(msg + "  send to other machine");
 
-	}
+	// }
 
 	public void switchover() throws Exception {
 		ti.changeMsg("SendingMsg", "t");
@@ -129,8 +129,8 @@ System.out.println("timer valu="+ti.timer_value);
 	public void run() {
 		try {
 			Ha_Initialization ts = new Ha_Initialization();
-			sendMsg=ts.SendingMsg;
-			sendHeartBeat(ts.SendingMsg, ts.destination_ip, ts.sender_port);
+			// sendMsg=ts.SendingMsg;
+			// sendHeartBeat(ts.SendingMsg, ts.destination_ip, ts.sender_port);
 
 			System.out.println(" 1111111111111111111111 11111");
 
@@ -192,7 +192,7 @@ System.out.println("timer valu="+ti.timer_value);
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
 			System.out.println(sendMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(sendMsg=="s"){
+				if(ts.SendingMsg.equals("s")){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

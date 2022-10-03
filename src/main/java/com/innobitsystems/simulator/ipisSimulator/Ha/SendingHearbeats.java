@@ -21,7 +21,7 @@ public class SendingHearbeats extends TimerTask
 
 		ds.send(DpSend);
 		
-		// System.out.println(msg + "  send to other machine");
+		System.out.println(msg + "  send to other machine");
 
 	}
 
@@ -31,9 +31,9 @@ public class SendingHearbeats extends TimerTask
 		try
 		{
 
-			// Ha_Initialization ts = new Ha_Initialization();
+			Ha_Initialization ts = new Ha_Initialization();
 			
-			// sendHeartBeat(ts.SendingMsg, ts.destination_ip, ts.sender_port);
+			sendHeartBeat(ts.SendingMsg, ts.destination_ip, ts.sender_port);
 
 		} 
 		catch (Exception e)

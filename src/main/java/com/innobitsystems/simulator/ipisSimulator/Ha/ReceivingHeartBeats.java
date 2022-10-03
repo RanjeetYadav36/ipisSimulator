@@ -11,17 +11,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.net.InetAddress;
 
 
 public class ReceivingHeartBeats extends TimerTask {
 
 	Ha_Initialization ti = new Ha_Initialization();
 	public String msg="";
+	public String sendMsg="";
 	public int jCount=0;
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
-
+			System.out.println(sendMsg+"8798======================");
 			DatagramSocket serverSocket = new DatagramSocket(receiverPort);
 
 			byte[] receivingDataBuffer = new byte[1024];
@@ -44,6 +46,22 @@ public class ReceivingHeartBeats extends TimerTask {
 
 			return e.toString();
 		}
+	}
+
+	public void sendHeartBeat(String msg, String destinationIp, int sendingPort) throws Exception
+	{
+		DatagramSocket ds = new DatagramSocket();
+		
+		byte[] data = msg.getBytes();
+		
+		InetAddress i = InetAddress.getByName(destinationIp);
+
+		DatagramPacket DpSend = new DatagramPacket(data, data.length, i, sendingPort);
+
+		ds.send(DpSend);
+		
+		System.out.println(msg + "  send to other machine");
+
 	}
 
 	public void switchover() throws Exception {
@@ -69,12 +87,12 @@ public class ReceivingHeartBeats extends TimerTask {
 			Callable<Object> task = new Callable<Object>() {
 				public Object call() throws Exception {
 					try {
-						System.out.println(ti.SendingMsg+")))))))))))))))))))))))))");
+						System.out.println(sendMsg+")))))))))))))))))))))))))");
 
 						msg = receiveHeartBeat(ti.receiver_port);
 						return msg;
 					} catch (Exception e) {
-						System.out.println(ti.SendingMsg+")))))))))))))))))))))))))");
+						System.out.println(sendMsg+")))))))))))))))))))))))))");
 						// ti.changeMsg("SendingMsg", "s");
 						return e;
 					}
@@ -110,6 +128,10 @@ System.out.println("timer valu="+ti.timer_value);
 	@Override
 	public void run() {
 		try {
+			Ha_Initialization ts = new Ha_Initialization();
+			sendMsg=ts.SendingMsg;
+			sendHeartBeat(ts.SendingMsg, ts.destination_ip, ts.sender_port);
+
 			System.out.println(" 1111111111111111111111 11111");
 
 			timeout();
@@ -169,8 +191,8 @@ System.out.println("timer valu="+ti.timer_value);
 			case 'j':
 			jCount=jCount+1;
 			System.out.println("++++++++++++++++++++++++++++++++++");
-			System.out.println(ti.SendingMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
-				if(ti.SendingMsg.equals("s")){
+			System.out.println(sendMsg+" &&&&&&&&&&&&&&&&&&&&&&&&");
+				if(sendMsg=="s"){
 			System.out.println(" inside if**************");
 					switchover();	
 				}

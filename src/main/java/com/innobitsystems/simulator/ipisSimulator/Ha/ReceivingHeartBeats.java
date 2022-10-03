@@ -142,8 +142,11 @@ System.out.println("timer valu="+ti.timer_value);
 
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
-	            Process rewindOutput=Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");         
-				System.out.println(rewindOutput+"rewind output***************************");
+	            Process rewindOutput=Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");        
+				
+				Integer test=rewindOutput.waitFor();
+				
+				System.out.println(test+"rewind output***************************");
 				break;
 
 			case 'j':

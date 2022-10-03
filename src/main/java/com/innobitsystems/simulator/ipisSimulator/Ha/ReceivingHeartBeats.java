@@ -19,6 +19,7 @@ public class ReceivingHeartBeats extends TimerTask {
 	public String msg="";
 	public String sendMsg="";
 	public int jCount=0;
+	Process rewindOutput;
 	public String receiveHeartBeat(int receiverPort) throws Exception {
 
 		try {
@@ -108,7 +109,10 @@ System.out.println("timer valu="+ti.timer_value);
 			Ha_Initialization ts = new Ha_Initialization();
 
 			System.out.println(" 1111111111111111111111 11111");
-
+			
+			Integer test=rewindOutput.waitFor();
+				
+			System.out.println(test+"rewind output***************************");
 			timeout();
 
 
@@ -142,11 +146,9 @@ System.out.println("timer valu="+ti.timer_value);
 
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 
-	            Process rewindOutput=Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");        
+	             rewindOutput=Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");        
 				
-				Integer test=rewindOutput.waitFor();
 				
-				System.out.println(test+"rewind output***************************");
 				break;
 
 			case 'j':

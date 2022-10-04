@@ -109,7 +109,11 @@ System.out.println("timer valu="+ti.timer_value);
 			Ha_Initialization ts = new Ha_Initialization();
 
 			System.out.println(" 1111111111111111111111 11111");
-				
+			// long startTime = System.currentTimeMillis();
+			// Process test=Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" ping 192.168.2.3");
+			// long stopTime = System.currentTimeMillis();
+			// long elapsedTime = stopTime - startTime;
+			// System.out.println(elapsedTime+"time 0000000000000000000000000000000000");
 			timeout();
 
 
@@ -142,9 +146,15 @@ System.out.println("timer valu="+ti.timer_value);
 				ti.changeMsg("SendingMsg","s");
 
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
+				long startTime = System.currentTimeMillis();
 
-	             Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");        
-				
+	             Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");     
+
+				 long stopTime = System.currentTimeMillis();
+				 long elapsedTime = stopTime - startTime;
+				 System.out.println(elapsedTime+"time 0000000000000000000000000000000000");
+				 Thread.sleep(elapsedTime);
+				 Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" net start postgresql-x64-14");   
 				
 				break;
 

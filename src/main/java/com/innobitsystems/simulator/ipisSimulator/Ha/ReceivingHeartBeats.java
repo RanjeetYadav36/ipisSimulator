@@ -148,13 +148,13 @@ System.out.println("timer valu="+ti.timer_value);
 				ti.unconfigureVip(ti.adapter_name, ti.virtual_ip, ti.subnet_mask, ti.gateway);
 				long startTime = System.currentTimeMillis();
 
-	             Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\"");     
+	             Process test= Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" pg_rewind -R -P -D \"C:\\Program Files\\PostgreSQL\\14\\data\" --source-server=\"host="+ti.destination_ip+" port=5432 user=postgres dbname=postgres\" && net start postgresql-x64-14");     
 
-				 long stopTime = System.currentTimeMillis();
-				 long elapsedTime = stopTime - startTime;
-				 System.out.println(elapsedTime+"time 0000000000000000000000000000000000");
-				 Thread.sleep(elapsedTime);
-				 Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" net start postgresql-x64-14");   
+				//  long stopTime = System.currentTimeMillis();
+				//  long elapsedTime = stopTime - startTime;
+				//  System.out.println(elapsedTime+"time 0000000000000000000000000000000000");
+				//  Thread.sleep(elapsedTime);
+				//  Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" net start postgresql-x64-14");   
 				
 				break;
 
